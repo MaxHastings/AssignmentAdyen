@@ -7,6 +7,8 @@ val apiKey = localProperties["API_KEY"] as String
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -71,6 +73,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.google.android.material)
 
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.retrofit)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
