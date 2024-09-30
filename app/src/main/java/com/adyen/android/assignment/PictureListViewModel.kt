@@ -8,12 +8,14 @@ import com.adyen.android.assignment.ui.PictureListUserIntent
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
 import com.adyen.android.assignment.usecases.SortPicturesByDateUseCase
 import com.adyen.android.assignment.usecases.SortPicturesByTitleUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
     private val sortPicturesByDateUseCase: SortPicturesByDateUseCase,
