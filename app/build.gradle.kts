@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.assertj.core)
     testImplementation(libs.mockk)
