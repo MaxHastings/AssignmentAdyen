@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     testImplementation(libs.assertj.core)
     testImplementation(libs.mockk)
