@@ -8,10 +8,12 @@ sealed class ReorderDialogUiState {
      * Initial state of the dialog, no sorting option selected.
      */
     data object None : ReorderDialogUiState()
+
     /**
      * State indicating that the user has selected to sort by title.
      */
     data object SortByTitle : ReorderDialogUiState()
+
     /**
      * State indicating that the user has selected to sort by date.
      */

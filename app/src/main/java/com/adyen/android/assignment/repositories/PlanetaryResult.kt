@@ -13,18 +13,21 @@ sealed class PlanetaryResult {
      * @param pictures The list of astronomy pictures retrieved.
      */
     data class Success(val pictures: List<AstronomyPicture>) : PlanetaryResult()
+
     /**
      * Represents a result with an HTTP error code.
      *
      * @param code The HTTP error code.
      */
     data class ErrorCode(val code: Int) : PlanetaryResult()
+
     /**
      * Represents a result with an IOException.
      *
      * @param e The IOException that occurred.
      */
     data class ErrorIOException(val e: IOException) : PlanetaryResult()
+
     /**
      * Represents a failure result due to a general Exception.
      *
