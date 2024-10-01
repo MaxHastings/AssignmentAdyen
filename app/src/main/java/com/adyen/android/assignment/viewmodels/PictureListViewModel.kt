@@ -8,6 +8,7 @@ import com.adyen.android.assignment.ui.pictureList.PictureListIntent
 import com.adyen.android.assignment.ui.pictureList.PictureListUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,14 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
-    private val sharedSortByViewModel: SharedSortByViewModel
+    private val sharedSortByViewModel: SharedSortByViewModel,
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PictureListUiState>(PictureListUiState.Loading)
     val uiState: StateFlow<PictureListUiState> = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             sharedSortByViewModel.sortEvents.collect { sortBy ->
                 sortPictures(sortBy)
             }
@@ -34,7 +36,7 @@ class PictureListViewModel @Inject constructor(
     }
 
     private fun getPictures() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             try {
                 when(val result = getPicturesUseCase()) {
                     is PlanetaryResult.Success -> {
