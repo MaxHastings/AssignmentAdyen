@@ -16,6 +16,18 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Picture List screen.
+ *
+ * This ViewModel is responsible for fetching and managing the list of astronomy pictures,
+ * handling user intents, and updating the UI state accordingly.
+ *
+ * @param getPicturesUseCase Use case for fetching the list of pictures.
+ * @param sortPicturesByTitleUseCase Use case for sorting pictures by title.
+ * @param sortPicturesByDateUseCase Use case for sorting pictures by date.
+ * @param sharedSortByViewModel Shared ViewModel for managing the sorting order.
+ * @param dispatcher Coroutine dispatcher for running asynchronous operations.
+ */
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
@@ -29,6 +41,7 @@ class PictureListViewModel @Inject constructor(
     val uiState: StateFlow<PictureListUiState> = _uiState.asStateFlow()
 
     init {
+        // Collect sort events from the shared ViewModel and sort pictures accordingly.
         viewModelScope.launch(dispatcher) {
             sharedSortByViewModel.sortEvents.collect { sortBy ->
                 sortPictures(sortBy)
@@ -36,6 +49,10 @@ class PictureListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Fetches the list of pictures using the getPicturesUseCase.
+     * Updates the UI state to Success or Error based on the result.
+     */
     fun getPictures() {
         viewModelScope.launch(dispatcher) {
             try {
@@ -60,6 +77,11 @@ class PictureListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Processes user intents and updates the UI state accordingly.
+     *
+     * @param intent The user intent to process.
+     */
     fun processIntent(intent: PictureListIntent) {
         when (intent) {
             is PictureListIntent.GetPictures -> {
@@ -70,6 +92,11 @@ class PictureListViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Sorts the list of pictures based on the given sorting order.
+     *
+     * @param by The sorting order (DATE or TITLE).
+     */
     private fun sortPictures(by: SortBy) {
         when (uiState.value) {
             is PictureListUiState.Success -> {

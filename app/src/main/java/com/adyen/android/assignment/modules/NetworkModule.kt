@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.di
+package com.adyen.android.assignment.modules
 
 import com.adyen.android.assignment.BuildConfig
 import com.adyen.android.assignment.api.PlanetaryService
