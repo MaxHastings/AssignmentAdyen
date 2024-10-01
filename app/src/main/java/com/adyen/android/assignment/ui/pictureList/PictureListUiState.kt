@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui
+package com.adyen.android.assignment.ui.pictureList
 
 import com.adyen.android.assignment.api.model.AstronomyPicture
 

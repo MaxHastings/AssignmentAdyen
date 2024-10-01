@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui.composables
+package com.adyen.android.assignment.ui.redorderDialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.adyen.android.assignment.ui.ReorderDialogIntent
-import com.adyen.android.assignment.ui.ReorderDialogUiState
 import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 
 @Composable

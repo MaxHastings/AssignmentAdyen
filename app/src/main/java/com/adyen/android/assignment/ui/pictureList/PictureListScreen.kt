@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui
+package com.adyen.android.assignment.ui.pictureList
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,8 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.AstronomyPicture
-import com.adyen.android.assignment.ui.composables.PictureItem
-import com.adyen.android.assignment.ui.composables.ReorderDialog
+import com.adyen.android.assignment.ui.redorderDialog.ReorderDialog
 import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 @Composable

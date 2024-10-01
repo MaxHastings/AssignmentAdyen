@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui
+package com.adyen.android.assignment.ui.redorderDialog
 
 sealed class ReorderDialogUiState {
     data object None : ReorderDialogUiState()
