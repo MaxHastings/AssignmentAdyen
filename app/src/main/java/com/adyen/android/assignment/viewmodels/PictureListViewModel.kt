@@ -65,7 +65,7 @@ class PictureListViewModel @Inject constructor(
                         _uiState.value = PictureListUiState.Error(result.code.toString(), false)
 
                     is PlanetaryResult.ErrorIOException ->
-                        _uiState.value = PictureListUiState.Error("No network connection", true)
+                        _uiState.value = PictureListUiState.Error(result.e.message ?: "Unknown error", true)
 
                     is PlanetaryResult.ErrorException ->
                         _uiState.value =

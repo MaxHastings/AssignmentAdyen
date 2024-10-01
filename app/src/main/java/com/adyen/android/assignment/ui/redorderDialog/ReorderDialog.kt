@@ -15,8 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.adyen.android.assignment.R
 import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 
 /**
@@ -32,12 +35,11 @@ fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),
     onDismiss: () -> Unit
 ) {
-
     val state = viewModel.uiState.collectAsState()
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        title = { Text("Sort Pictures") }, // More descriptive title
+        title = { Text(text = stringResource(id = R.string.sort_pictures)) },
         text = {
             Column {
                 Row(
@@ -45,9 +47,9 @@ fun ReorderDialog(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp) // Add padding
+                        .padding(vertical = 8.dp)
                 ) {
-                    Text("Title")
+                    Text(text = stringResource(id = R.string.title))
                     RadioButton(
                         selected = state.value is ReorderDialogUiState.SortByTitle,
                         onClick = { viewModel.processIntent(ReorderDialogIntent.SortByTitle) }
@@ -60,7 +62,7 @@ fun ReorderDialog(
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
                 ) {
-                    Text("Date")
+                    Text(text = stringResource(id = R.string.date))
                     RadioButton(
                         selected = state.value == ReorderDialogUiState.SortByDate,
                         onClick = { viewModel.processIntent(ReorderDialogIntent.SortByDate) }
@@ -76,18 +78,16 @@ fun ReorderDialog(
                 },
                 modifier = Modifier.padding(8.dp)
             ) {
-                Text("Sort")
+                Text(text = stringResource(id = R.string.sort))
             }
         },
         dismissButton = {
             Button(
-                onClick = {
-                    onDismiss()
-                },
+                onClick = { onDismiss() },
                 modifier = Modifier.padding(8.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary) // Secondary button
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
             ) {
-                Text("Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
         }
     )

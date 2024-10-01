@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Android Assignment</string>
+    <string name="sort_pictures">Sort Pictures</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="sort">Sort</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_icon">Error icon</string>
+    <string name="error_title">Oops! Something went wrong.</string>
+    <string name="retry">Retry</string>
+    <string name="open_network_settings">Open Network Settings</string>
 </resources>

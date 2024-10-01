@@ -19,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.adyen.android.assignment.R
 import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 /**
@@ -52,14 +54,14 @@ fun ErrorScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Warning,
-                contentDescription = "Error icon",
+                contentDescription = stringResource(id = R.string.error_icon),
                 modifier = Modifier
                     .size(64.dp)
                     .padding(bottom = 16.dp),
                 tint = MaterialTheme.colorScheme.onErrorContainer
             )
             Text(
-                text = "Oops! Something went wrong.",
+                text = stringResource(id = R.string.error_title),
                 style = typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onErrorContainer,
             )
@@ -72,24 +74,22 @@ fun ErrorScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Retry button
             Button(
                 onClick = { viewModel.processIntent(PictureListIntent.GetPictures) },
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text("Retry")
+                Text(text = stringResource(id = R.string.retry))
             }
 
-            // Network settings button (optional)
             if (showNetworkSettings) {
                 Button(
                     onClick = {
                         val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
-                        context.startActivity(intent) // Launches the system network settings screen
+                        context.startActivity(intent)
                     },
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text("Open Network Settings")
+                    Text(text = stringResource(id = R.string.open_network_settings))
                 }
             }
         }
