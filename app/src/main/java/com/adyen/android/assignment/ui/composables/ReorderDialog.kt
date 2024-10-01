@@ -19,13 +19,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.ui.ReorderDialogIntent
 import com.adyen.android.assignment.ui.ReorderDialogUiState
+import com.adyen.android.assignment.viewmodels.PictureListViewModel
 import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 
 @Composable
 fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),
+    pictureListViewModel: PictureListViewModel,
     onDismiss: () -> Unit
     ) {
+
+    pictureListViewModel.observeSortEvents(viewModel)
 
     val state = viewModel.uiState.collectAsState()
 

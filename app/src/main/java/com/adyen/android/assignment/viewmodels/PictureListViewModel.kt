@@ -1,15 +1,11 @@
 package com.adyen.android.assignment.viewmodels
 
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.adyen.android.assignment.repositories.PlanetaryRepository
 import com.adyen.android.assignment.repositories.PlanetaryResult
+import com.adyen.android.assignment.repositories.SortBy
 import com.adyen.android.assignment.ui.PictureListUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
-import com.adyen.android.assignment.usecases.SortPicturesByDateUseCase
-import com.adyen.android.assignment.usecases.SortPicturesByTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
-    private val repository: PlanetaryRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PictureListUiState>(PictureListUiState.Loading)
@@ -31,7 +26,7 @@ class PictureListViewModel @Inject constructor(
             try {
                 when(val result = getPicturesUseCase()) {
                     is PlanetaryResult.Success -> {
-                        _uiState.value = PictureListUiState.Success(pictures = repository.items.value)
+                        _uiState.value = PictureListUiState.Success(pictures = result.pictures)
                     }
                     is PlanetaryResult.ErrorException ->
                         _uiState.value = PictureListUiState.Error(result.e.message ?: "Unknown error")
@@ -42,10 +37,30 @@ class PictureListViewModel @Inject constructor(
                 _uiState.value = PictureListUiState.Error(e.message ?: "Unknown error")
             }
         }
+    }
+
+    fun observeSortEvents(reorderDialogViewModel: ReorderDialogViewModel) {
         viewModelScope.launch {
-            repository.items.collect { pictures ->
-                _uiState.value = PictureListUiState.Success(pictures = pictures)
+            reorderDialogViewModel.sortEvents.collect { sortBy ->
+                sortPictures(sortBy)
             }
         }
     }
+
+    private fun sortPictures(by: SortBy) {
+        when (uiState.value) {
+            is PictureListUiState.Success -> {
+                val sortedList = when (by) {
+                    SortBy.DATE -> (uiState.value as PictureListUiState.Success).pictures.sortedBy { it.date }
+                    SortBy.TITLE -> (uiState.value as PictureListUiState.Success).pictures.sortedBy { it.title }
+                }
+                _uiState.value = PictureListUiState.Success(sortedList)
+            }
+            is PictureListUiState.Error -> TODO()
+            is PictureListUiState.Loading -> TODO()
+            is PictureListUiState.NetworkError -> TODO()
+        }
+    }
+
+
 }

@@ -35,7 +35,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
         is PictureListUiState.Loading -> LoadingScreen()
         is PictureListUiState.Success -> {
             if (showDialog) {
-                ReorderDialog(onDismiss = { showDialog = false })
+                ReorderDialog(onDismiss = { showDialog = false }, pictureListViewModel = viewModel)
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
