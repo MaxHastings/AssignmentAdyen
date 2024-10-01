@@ -94,11 +94,12 @@ class PictureListViewModelTest {
      */
     @Test
     fun `getPictures updates uiState to Error when use case returns ErrorIOException`() = runTest {
-        coEvery { getPicturesUseCase() } returns PlanetaryResult.ErrorIOException(IOException())
+        val message = "io exception"
+        coEvery { getPicturesUseCase() } returns PlanetaryResult.ErrorIOException(IOException(message))
 
         viewModel.processIntent(PictureListIntent.GetPictures)
 
-        viewModel.uiState.value shouldBe PictureListUiState.Error("No network connection", true)
+        viewModel.uiState.value shouldBe PictureListUiState.Error(message, true)
     }
 
     /**
