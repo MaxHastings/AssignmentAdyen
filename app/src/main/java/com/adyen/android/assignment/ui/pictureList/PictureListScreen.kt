@@ -36,8 +36,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
-        is PictureListUiState.NetworkError -> ErrorScreen(viewModel, currentState.message)
-        is PictureListUiState.Error -> ErrorScreen(viewModel, currentState.message)
+        is PictureListUiState.Error -> ErrorScreen(viewModel, currentState.message, currentState.showNetworkSettings)
     }
 }
 

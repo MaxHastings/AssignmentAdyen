@@ -6,14 +6,13 @@ import com.adyen.android.assignment.repositories.PlanetaryResult
 import com.adyen.android.assignment.repositories.SortBy
 import com.adyen.android.assignment.ui.pictureList.PictureListIntent
 import com.adyen.android.assignment.ui.pictureList.PictureListUiState
-import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogIntent
-import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,10 +40,12 @@ class PictureListViewModel @Inject constructor(
                     is PlanetaryResult.Success -> {
                         _uiState.value = PictureListUiState.Success(pictures = result.pictures)
                     }
-                    is PlanetaryResult.ErrorException ->
-                        _uiState.value = PictureListUiState.Error(result.e.message ?: "Unknown error")
                     is PlanetaryResult.ErrorCode ->
-                        _uiState.value = PictureListUiState.NetworkError(result.code.toString())
+                        _uiState.value = PictureListUiState.Error(result.code.toString(), false)
+                    is PlanetaryResult.ErrorIOException ->
+                        _uiState.value = PictureListUiState.Error("No network connection", true)
+                    is PlanetaryResult.ErrorException ->
+                        _uiState.value = PictureListUiState.Error(result.e.message ?: "Unknown error", false)
                 }
             } catch (e: Exception) {
                 _uiState.value = PictureListUiState.Error(e.message ?: "Unknown error")
@@ -73,7 +74,6 @@ class PictureListViewModel @Inject constructor(
             }
             is PictureListUiState.Error -> {}
             is PictureListUiState.Loading -> {}
-            is PictureListUiState.NetworkError -> {}
         }
     }
 }

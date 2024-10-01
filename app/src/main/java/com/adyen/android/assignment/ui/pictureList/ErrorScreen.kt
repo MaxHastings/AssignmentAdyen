@@ -1,5 +1,7 @@
 package com.adyen.android.assignment.ui.pictureList
 
+import android.content.Intent
+import android.provider.Settings
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,13 +18,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 @Composable
-fun ErrorScreen(viewModel: PictureListViewModel, message: String) {
+fun ErrorScreen(viewModel: PictureListViewModel, message: String, showNetworkSettings: Boolean = false) {
     val typography = MaterialTheme.typography
+    val context = LocalContext.current // To access the context for launching the intent
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -52,11 +57,25 @@ fun ErrorScreen(viewModel: PictureListViewModel, message: String) {
                 color = MaterialTheme.colorScheme.onErrorContainer,
             )
             Spacer(modifier = Modifier.height(16.dp))
+
+            // Retry button
             Button(
                 onClick = { viewModel.processIntent(PictureListIntent.Retry) },
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text("Retry")
+            }
+
+            if (showNetworkSettings) {
+                Button(
+                    onClick = {
+                        val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                        context.startActivity(intent) // Launches the system network settings screen
+                    },
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text("Open Network Settings")
+                }
             }
         }
     }
