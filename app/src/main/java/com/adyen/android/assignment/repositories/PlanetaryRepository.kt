@@ -28,7 +28,3 @@ class PlanetaryRepository @Inject constructor(
         }
     }
 }
-
-enum class SortBy {
-    DATE, TITLE
-}

@@ -9,6 +9,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +28,11 @@ import com.adyen.android.assignment.viewmodels.PictureListViewModel
 fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
+
+    // Fetch pictures when the screen is first displayed
+    LaunchedEffect(Unit) {
+        viewModel.getPictures()
+    }
 
     when (val currentState = uiState) {
         is PictureListUiState.Loading -> LoadingScreen()

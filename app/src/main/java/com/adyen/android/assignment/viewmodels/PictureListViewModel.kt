@@ -3,10 +3,11 @@ package com.adyen.android.assignment.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.repositories.PlanetaryResult
-import com.adyen.android.assignment.repositories.SortBy
 import com.adyen.android.assignment.ui.pictureList.PictureListIntent
 import com.adyen.android.assignment.ui.pictureList.PictureListUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
+import com.adyen.android.assignment.usecases.SortPicturesByDateUseCase
+import com.adyen.android.assignment.usecases.SortPicturesByTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
+    private val sortPicturesByTitleUseCase: SortPicturesByTitleUseCase,
+    private val sortPicturesByDateUseCase: SortPicturesByDateUseCase,
     private val sharedSortByViewModel: SharedSortByViewModel,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -32,10 +35,9 @@ class PictureListViewModel @Inject constructor(
                 sortPictures(sortBy)
             }
         }
-        getPictures()
     }
 
-    private fun getPictures() {
+    fun getPictures() {
         viewModelScope.launch(dispatcher) {
             try {
                 when(val result = getPicturesUseCase()) {
@@ -57,7 +59,7 @@ class PictureListViewModel @Inject constructor(
 
     fun processIntent(intent: PictureListIntent) {
         when (intent) {
-            is PictureListIntent.Retry -> {
+            is PictureListIntent.GetPictures -> {
                 _uiState.value =
                     PictureListUiState.Loading
                 getPictures()
@@ -69,8 +71,8 @@ class PictureListViewModel @Inject constructor(
         when (uiState.value) {
             is PictureListUiState.Success -> {
                 val sortedList = when (by) {
-                    SortBy.DATE -> (uiState.value as PictureListUiState.Success).pictures.sortedBy { it.date }
-                    SortBy.TITLE -> (uiState.value as PictureListUiState.Success).pictures.sortedBy { it.title }
+                    SortBy.DATE -> sortPicturesByDateUseCase.invoke((uiState.value as PictureListUiState.Success).pictures, true)
+                    SortBy.TITLE -> sortPicturesByTitleUseCase.invoke((uiState.value as PictureListUiState.Success).pictures, true)
                 }
                 _uiState.value = PictureListUiState.Success(sortedList)
             }

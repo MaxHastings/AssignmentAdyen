@@ -1,7 +1,6 @@
 package com.adyen.android.assignment.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.adyen.android.assignment.repositories.SortBy
 import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogIntent
 import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

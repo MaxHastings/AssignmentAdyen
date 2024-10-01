@@ -2,7 +2,6 @@ package com.adyen.android.assignment.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adyen.android.assignment.repositories.SortBy
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -24,4 +23,8 @@ class SharedSortByViewModel @Inject constructor(
             _sortEvents.emit(sortBy)
         }
     }
+}
+
+enum class SortBy {
+    DATE, TITLE
 }

@@ -60,7 +60,7 @@ fun ErrorScreen(viewModel: PictureListViewModel, message: String, showNetworkSet
 
             // Retry button
             Button(
-                onClick = { viewModel.processIntent(PictureListIntent.Retry) },
+                onClick = { viewModel.processIntent(PictureListIntent.GetPictures) },
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text("Retry")
