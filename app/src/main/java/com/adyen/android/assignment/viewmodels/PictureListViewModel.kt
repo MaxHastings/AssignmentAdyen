@@ -16,12 +16,18 @@ import javax.inject.Inject
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
+    private val sharedSortByViewModel: SharedSortByViewModel
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PictureListUiState>(PictureListUiState.Loading)
     val uiState: StateFlow<PictureListUiState> = _uiState.asStateFlow()
 
     init {
+        viewModelScope.launch {
+            sharedSortByViewModel.sortEvents.collect { sortBy ->
+                sortPictures(sortBy)
+            }
+        }
         viewModelScope.launch {
             try {
                 when(val result = getPicturesUseCase()) {
@@ -39,14 +45,6 @@ class PictureListViewModel @Inject constructor(
         }
     }
 
-    fun observeSortEvents(reorderDialogViewModel: ReorderDialogViewModel) {
-        viewModelScope.launch {
-            reorderDialogViewModel.sortEvents.collect { sortBy ->
-                sortPictures(sortBy)
-            }
-        }
-    }
-
     private fun sortPictures(by: SortBy) {
         when (uiState.value) {
             is PictureListUiState.Success -> {
@@ -56,11 +54,9 @@ class PictureListViewModel @Inject constructor(
                 }
                 _uiState.value = PictureListUiState.Success(sortedList)
             }
-            is PictureListUiState.Error -> TODO()
-            is PictureListUiState.Loading -> TODO()
-            is PictureListUiState.NetworkError -> TODO()
+            is PictureListUiState.Error -> {}
+            is PictureListUiState.Loading -> {}
+            is PictureListUiState.NetworkError -> {}
         }
     }
-
-
 }

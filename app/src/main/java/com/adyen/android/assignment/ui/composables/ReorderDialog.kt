@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,20 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.ui.ReorderDialogIntent
 import com.adyen.android.assignment.ui.ReorderDialogUiState
-import com.adyen.android.assignment.viewmodels.PictureListViewModel
 import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 
 @Composable
 fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),
-    pictureListViewModel: PictureListViewModel,
     onDismiss: () -> Unit
     ) {
-
-    LaunchedEffect(Unit) {
-        // Observe sorting events and pass them to the PictureListViewModel
-        pictureListViewModel.observeSortEvents(viewModel)
-    }
 
     val state = viewModel.uiState.collectAsState()
 

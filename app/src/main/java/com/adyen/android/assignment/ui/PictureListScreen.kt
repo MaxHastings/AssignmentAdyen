@@ -14,17 +14,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.adyen.android.assignment.viewmodels.PictureListViewModel
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.ui.composables.PictureItem
 import com.adyen.android.assignment.ui.composables.ReorderDialog
+import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 @Composable
 fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
@@ -35,7 +34,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
         is PictureListUiState.Loading -> LoadingScreen()
         is PictureListUiState.Success -> {
             if (showDialog) {
-                ReorderDialog(onDismiss = { showDialog = false }, pictureListViewModel = viewModel)
+                ReorderDialog(onDismiss = { showDialog = false })
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
