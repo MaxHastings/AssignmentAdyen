@@ -4,7 +4,6 @@ import com.adyen.android.assignment.api.PlanetaryService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.lang.Exception
 import javax.inject.Inject
 
 class PlanetaryRepository @Inject constructor(

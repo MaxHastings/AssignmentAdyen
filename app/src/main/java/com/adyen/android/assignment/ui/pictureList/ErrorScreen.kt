@@ -24,7 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 @Composable
-fun ErrorScreen(viewModel: PictureListViewModel, message: String, showNetworkSettings: Boolean = false) {
+fun ErrorScreen(
+    viewModel: PictureListViewModel,
+    message: String,
+    showNetworkSettings: Boolean = false
+) {
     val typography = MaterialTheme.typography
     val context = LocalContext.current // To access the context for launching the intent
 

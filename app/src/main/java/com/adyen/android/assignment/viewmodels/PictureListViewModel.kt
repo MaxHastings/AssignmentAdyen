@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,16 +39,20 @@ class PictureListViewModel @Inject constructor(
     fun getPictures() {
         viewModelScope.launch(dispatcher) {
             try {
-                when(val result = getPicturesUseCase()) {
+                when (val result = getPicturesUseCase()) {
                     is PlanetaryResult.Success -> {
                         _uiState.value = PictureListUiState.Success(pictures = result.pictures)
                     }
+
                     is PlanetaryResult.ErrorCode ->
                         _uiState.value = PictureListUiState.Error(result.code.toString(), false)
+
                     is PlanetaryResult.ErrorIOException ->
                         _uiState.value = PictureListUiState.Error("No network connection", true)
+
                     is PlanetaryResult.ErrorException ->
-                        _uiState.value = PictureListUiState.Error(result.e.message ?: "Unknown error", false)
+                        _uiState.value =
+                            PictureListUiState.Error(result.e.message ?: "Unknown error", false)
                 }
             } catch (e: Exception) {
                 _uiState.value = PictureListUiState.Error(e.message ?: "Unknown error")
@@ -71,11 +74,19 @@ class PictureListViewModel @Inject constructor(
         when (uiState.value) {
             is PictureListUiState.Success -> {
                 val sortedList = when (by) {
-                    SortBy.DATE -> sortPicturesByDateUseCase.invoke((uiState.value as PictureListUiState.Success).pictures, true)
-                    SortBy.TITLE -> sortPicturesByTitleUseCase.invoke((uiState.value as PictureListUiState.Success).pictures, true)
+                    SortBy.DATE -> sortPicturesByDateUseCase.invoke(
+                        (uiState.value as PictureListUiState.Success).pictures,
+                        true
+                    )
+
+                    SortBy.TITLE -> sortPicturesByTitleUseCase.invoke(
+                        (uiState.value as PictureListUiState.Success).pictures,
+                        true
+                    )
                 }
                 _uiState.value = PictureListUiState.Success(sortedList)
             }
+
             is PictureListUiState.Error -> {}
             is PictureListUiState.Loading -> {}
         }

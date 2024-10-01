@@ -5,7 +5,10 @@ import javax.inject.Inject
 
 class SortPicturesByDateUseCase @Inject constructor() {
 
-    operator fun invoke(pictures: List<AstronomyPicture>, ascending: Boolean): List<AstronomyPicture> {
+    operator fun invoke(
+        pictures: List<AstronomyPicture>,
+        ascending: Boolean
+    ): List<AstronomyPicture> {
         return if (ascending) {
             pictures.sortedBy { it.date }
         } else {

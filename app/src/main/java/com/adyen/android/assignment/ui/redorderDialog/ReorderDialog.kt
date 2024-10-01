@@ -23,7 +23,7 @@ import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),
     onDismiss: () -> Unit
-    ) {
+) {
 
     val state = viewModel.uiState.collectAsState()
 

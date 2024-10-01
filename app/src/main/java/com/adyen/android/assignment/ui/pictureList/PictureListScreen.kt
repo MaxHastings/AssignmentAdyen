@@ -42,7 +42,12 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
-        is PictureListUiState.Error -> ErrorScreen(viewModel, currentState.message, currentState.showNetworkSettings)
+
+        is PictureListUiState.Error -> ErrorScreen(
+            viewModel,
+            currentState.message,
+            currentState.showNetworkSettings
+        )
     }
 }
 
@@ -54,7 +59,7 @@ fun LoadingScreen() {
 }
 
 @Composable
-fun PictureListContent(pictures: List<AstronomyPicture>,  onShowDialogChange: (Boolean) -> Unit) {
+fun PictureListContent(pictures: List<AstronomyPicture>, onShowDialogChange: (Boolean) -> Unit) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = { onShowDialogChange(true) }) {
