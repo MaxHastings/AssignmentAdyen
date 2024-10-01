@@ -21,6 +21,11 @@ import java.io.IOException
 import java.time.LocalDate
 
 
+/**
+ * Test class for [PictureListViewModel].
+ *
+ * This class uses MockK for mocking dependencies and coroutines test features for testing suspending functions.
+ */
 @ExperimentalCoroutinesApi
 class PictureListViewModelTest {
 
@@ -32,6 +37,11 @@ class PictureListViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
     private lateinit var viewModel: PictureListViewModel
 
+    /**
+     * Sets up the test environment before each test.
+     *
+     * Initializes the ViewModel and mocks the shared flow for SortBy events.
+     */
     @Before
     fun setup() {
         every { sharedSortByViewModel.sortEvents } returns mockSharedFlow
@@ -44,6 +54,9 @@ class PictureListViewModelTest {
         )
     }
 
+    /**
+     * Tests that `getPictures` updates `uiState` to [PictureListUiState.Success] when the use case returns [PlanetaryResult.Success].
+     */
     @Test
     fun `getPictures updates uiState to Success when use case returns Success`(): Unit = runTest {
         val pictures = listOf(
@@ -64,6 +77,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Success(pictures)
     }
 
+    /**
+     * Tests that `getPictures` updates `uiState` to [PictureListUiState.Error] when the use case returns [PlanetaryResult.ErrorCode].
+     */
     @Test
     fun `getPictures updates uiState to Error when use case returns ErrorCode`() = runTest {
         coEvery { getPicturesUseCase() } returns PlanetaryResult.ErrorCode(400)
@@ -73,6 +89,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Error("400", false)
     }
 
+    /**
+     * Tests that `getPictures` updates `uiState` to [PictureListUiState.Error] when the use case returns [PlanetaryResult.ErrorIOException].
+     */
     @Test
     fun `getPictures updates uiState to Error when use case returns ErrorIOException`() = runTest {
         coEvery { getPicturesUseCase() } returns PlanetaryResult.ErrorIOException(IOException())
@@ -82,6 +101,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Error("No network connection", true)
     }
 
+    /**
+     * Tests that `getPictures` updates `uiState` to [PictureListUiState.Error] when the use case returns [PlanetaryResult.ErrorException].
+     */
     @Test
     fun `getPictures updates uiState to Error when use case returns ErrorException`() = runTest {
         coEvery { getPicturesUseCase() } returns PlanetaryResult.ErrorException(Exception("Test exception"))
@@ -92,6 +114,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Error("Test exception", false)
     }
 
+    /**
+     * Tests that `getPictures` updates `uiState` to [PictureListUiState.Error] when an exception occurs during the process.
+     */
     @Test
     fun `getPictures updates uiState to Error when an exception occurs`() = runTest {
         coEvery { getPicturesUseCase() } throws RuntimeException("Test exception")
@@ -101,6 +126,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Error("Test exception")
     }
 
+    /**
+     * Tests that `sortPictures` sorts pictures by date when `sortBy` is [SortBy.DATE].
+     */
     @Test
     fun `sortPictures sorts pictures by date when sortBy is DATE`() = runTest {
         val pictures = listOf(
@@ -137,6 +165,9 @@ class PictureListViewModelTest {
         viewModel.uiState.value shouldBe PictureListUiState.Success(sortedPictures)
     }
 
+    /**
+     * Tests that `sortPictures` sorts pictures by title when `sortBy` is [SortBy.TITLE].
+     */
     @Test
     fun `sortPictures sorts pictures by title when sortBy is TITLE`() = runTest {
         val pictures = listOf(

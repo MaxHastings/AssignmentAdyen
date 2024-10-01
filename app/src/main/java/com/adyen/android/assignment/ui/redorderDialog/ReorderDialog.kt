@@ -19,6 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 
+/**
+ * Composable function that displays a dialog for reordering pictures.
+ *
+ * This dialog allows the user to choose between sorting pictures by title or date.
+ *
+ * @param viewModel The ReorderDialogViewModel used to manage the dialog state.
+ * @param onDismiss Callback function to be invoked when the dialog is dismissed.
+ */
 @Composable
 fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),

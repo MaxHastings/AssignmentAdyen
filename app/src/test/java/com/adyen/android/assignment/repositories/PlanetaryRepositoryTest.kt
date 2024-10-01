@@ -21,24 +21,25 @@ import retrofit2.Response
 import java.io.IOException
 import java.time.LocalDate
 
+/**
+ * Test class for [PlanetaryRepository].
+ *
+ * This class uses MockK for mocking dependencies and coroutines test features for testing suspending functions.
+ */
 @ExperimentalCoroutinesApi
 class PlanetaryRepositoryTest {
 
     private val planetaryService: PlanetaryService = mockk()
     private lateinit var repository: PlanetaryRepository
-    private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
-        Dispatchers.setMain(testDispatcher)
         repository = PlanetaryRepository(planetaryService)
     }
 
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
-
+    /**
+     * Tests that [PlanetaryRepository.getPictures] returns [PlanetaryResult.Success] when the response is successful.
+     */
     @Test
     fun `getPictures returns Success when response is successful`() = runTest {
         val pictures = listOf(
@@ -61,6 +62,9 @@ class PlanetaryRepositoryTest {
         assertEquals(PlanetaryResult.Success(pictures), result)
     }
 
+    /**
+     * Tests that [PlanetaryRepository.getPictures] returns [PlanetaryResult.ErrorCode] when the response is not successful.
+     */
     @Test
     fun `getPictures returns ErrorCode when response is not successful`() = runTest {
         val response: Response<List<AstronomyPicture>> = Response.error(
@@ -75,6 +79,9 @@ class PlanetaryRepositoryTest {
         assertEquals(PlanetaryResult.ErrorCode(400), result)
     }
 
+    /**
+     * Tests that [PlanetaryRepository.getPictures] returns [PlanetaryResult.ErrorIOException] when an [IOException] occurs.
+     */
     @Test
     fun `getPictures returns ErrorIOException when IOException occurs`() = runTest {
         coEvery { planetaryService.getPictures() } throws IOException()
@@ -85,6 +92,9 @@ class PlanetaryRepositoryTest {
         assertEquals(true, result is PlanetaryResult.ErrorIOException)
     }
 
+    /**
+     * Tests that [PlanetaryRepository.getPictures] returns [PlanetaryResult.ErrorException] when an [Exception] occurs.
+     */
     @Test
     fun `getPictures returns ErrorException when Exception occurs`() = runTest {
         coEvery { planetaryService.getPictures() } throws Exception()

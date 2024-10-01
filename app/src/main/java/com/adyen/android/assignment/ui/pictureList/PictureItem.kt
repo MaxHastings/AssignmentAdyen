@@ -18,6 +18,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.adyen.android.assignment.api.model.AstronomyPicture
 
+/**
+ * Composable function that displays a single picture item.
+ *
+ * This function displays an astronomy picture with its title and date.
+ * It uses AsyncImage to load the image from the provided URL.
+ *
+ * @param picture The AstronomyPicture object to display.
+ */
 @Composable
 fun PictureItem(picture: AstronomyPicture) {
     Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {

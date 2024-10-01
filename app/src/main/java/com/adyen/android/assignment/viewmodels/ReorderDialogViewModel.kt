@@ -9,6 +9,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Reorder Dialog.
+ *
+ * This ViewModel is responsible for managing the state of the Reorder Dialog and
+ * communicating with the SharedSortByViewModel to apply the selected sorting order.
+ *
+ * @param sharedSortByViewModel Shared ViewModel for managing the sorting order.
+ */
 @HiltViewModel
 class ReorderDialogViewModel @Inject constructor(
     private val sharedSortByViewModel: SharedSortByViewModel
@@ -17,6 +25,11 @@ class ReorderDialogViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<ReorderDialogUiState>(ReorderDialogUiState.None)
     val uiState: StateFlow<ReorderDialogUiState> = _uiState.asStateFlow()
 
+    /**
+     * Processes user intents and updates the UI state or applies the sorting order.
+     *
+     * @param intent The user intent to process.
+     */
     fun processIntent(intent: ReorderDialogIntent) {
         when (intent) {
             is ReorderDialogIntent.SortByDate -> _uiState.value =

@@ -6,10 +6,18 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.time.LocalDate
 
+/**
+ * Test class for [SortPicturesByDateUseCase].
+ *
+ * This class tests the functionality of the `invoke()` method for sorting pictures by date.
+ */
 class SortPicturesByDateUseCaseTest {
 
     private val useCase = SortPicturesByDateUseCase()
 
+    /**
+     * Tests that `invoke()` sorts pictures by date in ascending order when `ascending` is true.
+     */
     @Test
     fun `invoke() sorts pictures by date in ascending order`() = runTest {
         val pictures = listOf(
@@ -29,6 +37,9 @@ class SortPicturesByDateUseCaseTest {
         )
     }
 
+    /**
+     * Tests that `invoke()` sorts pictures by date in descending order when `ascending` is false.
+     */
     @Test
     fun `invoke() sorts pictures by date in descending order`() = runTest {
         val pictures = listOf(

@@ -23,6 +23,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
+/**
+ * Composable function that displays an error screen.
+ *
+ * This screen shows an error message and provides options to retry fetching data
+ * or open the network settings.
+ *
+ * @param viewModel The ViewModel used to retry fetching data.
+ * @param message The error message to display.
+ * @param showNetworkSettings Whether to show a button to open network settings.
+ */
 @Composable
 fun ErrorScreen(
     viewModel: PictureListViewModel,
@@ -30,7 +40,7 @@ fun ErrorScreen(
     showNetworkSettings: Boolean = false
 ) {
     val typography = MaterialTheme.typography
-    val context = LocalContext.current // To access the context for launching the intent
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -70,6 +80,7 @@ fun ErrorScreen(
                 Text("Retry")
             }
 
+            // Network settings button (optional)
             if (showNetworkSettings) {
                 Button(
                     onClick = {

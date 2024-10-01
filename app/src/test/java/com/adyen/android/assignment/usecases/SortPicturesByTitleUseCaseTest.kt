@@ -6,9 +6,17 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.time.LocalDate
 
+/**
+ * Test class for [SortPicturesByTitleUseCase].
+ *
+ * This class tests the functionality of the `invoke()` method for sorting pictures by title.
+ */
 class SortPicturesByTitleUseCaseTest {
     private val useCase = SortPicturesByTitleUseCase()
 
+    /**
+     * Tests that `invoke()` sorts pictures by title in ascending order when `ascending` is true.
+     */
     @Test
     fun `invoke() sorts pictures by title in ascending order`() = runTest {
         val pictures = listOf(
@@ -28,6 +36,9 @@ class SortPicturesByTitleUseCaseTest {
         )
     }
 
+    /**
+     * Tests that `invoke()` sorts pictures by title in descending order when `ascending` is false.
+     */
     @Test
     fun `invoke() sorts pictures by title in descending order`() = runTest {
         val pictures = listOf(
