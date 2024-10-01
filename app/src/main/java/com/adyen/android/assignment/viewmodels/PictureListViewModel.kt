@@ -4,7 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.android.assignment.repositories.PlanetaryResult
 import com.adyen.android.assignment.repositories.SortBy
+import com.adyen.android.assignment.ui.pictureList.PictureListIntent
 import com.adyen.android.assignment.ui.pictureList.PictureListUiState
+import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogIntent
+import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +31,10 @@ class PictureListViewModel @Inject constructor(
                 sortPictures(sortBy)
             }
         }
+        getPictures()
+    }
+
+    private fun getPictures() {
         viewModelScope.launch {
             try {
                 when(val result = getPicturesUseCase()) {
@@ -41,6 +48,16 @@ class PictureListViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 _uiState.value = PictureListUiState.Error(e.message ?: "Unknown error")
+            }
+        }
+    }
+
+    fun processIntent(intent: PictureListIntent) {
+        when (intent) {
+            is PictureListIntent.Retry -> {
+                _uiState.value =
+                    PictureListUiState.Loading
+                getPictures()
             }
         }
     }

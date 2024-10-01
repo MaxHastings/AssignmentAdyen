@@ -8,7 +8,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,8 +36,8 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
-        is PictureListUiState.NetworkError -> ErrorScreen(currentState.message)
-        is PictureListUiState.Error -> ErrorScreen(currentState.message)
+        is PictureListUiState.NetworkError -> ErrorScreen(viewModel, currentState.message)
+        is PictureListUiState.Error -> ErrorScreen(viewModel, currentState.message)
     }
 }
 
@@ -66,12 +65,5 @@ fun PictureListContent(pictures: List<AstronomyPicture>,  onShowDialogChange: (B
                 PictureItem(picture)
             }
         }
-    }
-}
-
-@Composable
-fun ErrorScreen(message: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Error: $message")
     }
 }
