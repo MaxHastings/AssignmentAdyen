@@ -27,7 +27,9 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
 
     // Fetch pictures when the screen is first displayed
     LaunchedEffect(Unit) {
-        viewModel.getPictures()
+        if (viewModel.uiState.value is PictureListUiState.Loading) {
+            viewModel.getPictures()
+        }
     }
 
     when (val currentState = uiState) {
