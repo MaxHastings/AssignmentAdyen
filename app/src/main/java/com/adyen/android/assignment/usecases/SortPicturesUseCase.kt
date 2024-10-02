@@ -5,22 +5,20 @@ import com.adyen.android.assignment.repositories.PlanetaryRepository
 import javax.inject.Inject
 
 /**
- * Use case for sorting a list of astronomy pictures by a specified field.
+ * Use case for sorting cached astronomy pictures by a specified field.
  *
- * This use case takes a list of pictures, a selector function to define the sorting key,
- * and a boolean indicating whether to sort in ascending or descending order.
+ * This use case retrieves cached pictures from the repository, sorts them based on the provided
+ * selector function and ascending/descending flag, and updates the cached pictures in the repository.
  */
 class SortPicturesUseCase @Inject constructor(
     private val planetaryRepository: PlanetaryRepository
 ) {
 
     /**
-     * Executes the use case and returns a sorted list of pictures.
+     * Sorts the cached pictures and updates the repository.
      *
-     * @param pictures The list of pictures to sort.
-     * @param selector A function that selects the field to sort by from an AstronomyPicture.
+     * @param selector A function that selects the field to sort by for astronomy pictures.
      * @param ascending True to sort in ascending order, false to sort in descending order.
-     * @return A sorted list of pictures.
      */
     operator fun invoke(
         selector: (AstronomyPicture) -> Comparable<*>,
