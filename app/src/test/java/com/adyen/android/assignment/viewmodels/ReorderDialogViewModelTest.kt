@@ -51,7 +51,7 @@ class ReorderDialogViewModelTest {
      * Tests that `processIntent` with [ReorderDialogIntent.Apply] after [ReorderDialogIntent.SortByDate] calls [SortPicturesUseCase].
      */
     @Test
-    fun `processIntent Apply with SortByDate calls emitSortEvent with DATE`() = runTest {
+    fun `processIntent Apply with SortByDate calls sortPicturesUseCase`() = runTest {
         viewModel.processIntent(ReorderDialogIntent.SortByDate)
 
         viewModel.processIntent(ReorderDialogIntent.Apply)
@@ -63,7 +63,7 @@ class ReorderDialogViewModelTest {
      * Tests that `processIntent` with [ReorderDialogIntent.Apply] after [ReorderDialogIntent.SortByTitle] calls [SortPicturesUseCase].
      */
     @Test
-    fun `processIntent Apply with SortByTitle calls emitSortEvent with TITLE`() = runTest {
+    fun `processIntent Apply with SortByTitle calls sortPicturesUseCase`() = runTest {
         viewModel.processIntent(ReorderDialogIntent.SortByTitle)
 
         viewModel.processIntent(ReorderDialogIntent.Apply)
@@ -75,7 +75,7 @@ class ReorderDialogViewModelTest {
      * Tests that `processIntent` with [ReorderDialogIntent.Apply] without a prior sort selection does not call [SortPicturesUseCase].
      */
     @Test
-    fun `processIntent Apply with None does not call emitSortEvent`() = runTest {
+    fun `processIntent Apply with None does not call sortPicturesUseCase`() = runTest {
 
         viewModel.processIntent(ReorderDialogIntent.Apply)
 
