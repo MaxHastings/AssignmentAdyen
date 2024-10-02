@@ -3,6 +3,7 @@ package com.adyen.android.assignment.viewmodels
 import androidx.lifecycle.ViewModel
 import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogIntent
 import com.adyen.android.assignment.ui.redorderDialog.ReorderDialogUiState
+import com.adyen.android.assignment.usecases.SortPicturesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,13 +14,13 @@ import javax.inject.Inject
  * ViewModel for the Reorder Dialog.
  *
  * This ViewModel is responsible for managing the state of the Reorder Dialog and
- * communicating with the SharedSortByViewModel to apply the selected sorting order.
+ * sorting pictures based on user selection.
  *
- * @param sharedSortByViewModel Shared ViewModel for managing the sorting order.
+ * @param sortPicturesUseCase Use case for sorting pictures by title or date.
  */
 @HiltViewModel
 class ReorderDialogViewModel @Inject constructor(
-    private val sharedSortByViewModel: SharedSortByViewModel
+    private val sortPicturesUseCase: SortPicturesUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<ReorderDialogUiState>(ReorderDialogUiState.None)
@@ -40,8 +41,14 @@ class ReorderDialogViewModel @Inject constructor(
 
             ReorderDialogIntent.Apply -> {
                 when (uiState.value) {
-                    ReorderDialogUiState.SortByDate -> sharedSortByViewModel.emitSortEvent(SortBy.DATE)
-                    ReorderDialogUiState.SortByTitle -> sharedSortByViewModel.emitSortEvent(SortBy.TITLE)
+                    ReorderDialogUiState.SortByDate ->
+                    {
+                        sortPicturesUseCase(selector = { it.date }, ascending = true)
+                    }
+                    ReorderDialogUiState.SortByTitle ->
+                    {
+                        sortPicturesUseCase(selector = { it.title }, ascending = true)
+                    }
                     ReorderDialogUiState.None -> {}
                 }
             }

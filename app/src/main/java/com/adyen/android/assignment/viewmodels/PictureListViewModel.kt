@@ -6,8 +6,6 @@ import com.adyen.android.assignment.repositories.PlanetaryResult
 import com.adyen.android.assignment.ui.pictureList.PictureListIntent
 import com.adyen.android.assignment.ui.pictureList.PictureListUiState
 import com.adyen.android.assignment.usecases.GetPicturesUseCase
-import com.adyen.android.assignment.usecases.SortPicturesByDateUseCase
-import com.adyen.android.assignment.usecases.SortPicturesByTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,31 +21,16 @@ import javax.inject.Inject
  * handling user intents, and updating the UI state accordingly.
  *
  * @param getPicturesUseCase Use case for fetching the list of pictures.
- * @param sortPicturesByTitleUseCase Use case for sorting pictures by title.
- * @param sortPicturesByDateUseCase Use case for sorting pictures by date.
- * @param sharedSortByViewModel Shared ViewModel for managing the sorting order.
  * @param dispatcher Coroutine dispatcher for running asynchronous operations.
  */
 @HiltViewModel
 class PictureListViewModel @Inject constructor(
     private val getPicturesUseCase: GetPicturesUseCase,
-    private val sortPicturesByTitleUseCase: SortPicturesByTitleUseCase,
-    private val sortPicturesByDateUseCase: SortPicturesByDateUseCase,
-    private val sharedSortByViewModel: SharedSortByViewModel,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<PictureListUiState>(PictureListUiState.Loading)
     val uiState: StateFlow<PictureListUiState> = _uiState.asStateFlow()
-
-    init {
-        // Collect sort events from the shared ViewModel and sort pictures accordingly.
-        viewModelScope.launch(dispatcher) {
-            sharedSortByViewModel.sortEvents.collect { sortBy ->
-                sortPictures(sortBy)
-            }
-        }
-    }
 
     /**
      * Fetches the list of pictures using the getPicturesUseCase.
@@ -56,7 +39,7 @@ class PictureListViewModel @Inject constructor(
     fun getPictures() {
         viewModelScope.launch(dispatcher) {
             try {
-                when (val result = getPicturesUseCase()) {
+                when (val result = getPicturesUseCase(acceptCached = true)) {
                     is PlanetaryResult.Success -> {
                         _uiState.value = PictureListUiState.Success(pictures = result.pictures)
                     }
@@ -90,33 +73,6 @@ class PictureListViewModel @Inject constructor(
                     PictureListUiState.Loading
                 getPictures()
             }
-        }
-    }
-
-    /**
-     * Sorts the list of pictures based on the given sorting order.
-     *
-     * @param by The sorting order (DATE or TITLE).
-     */
-    private fun sortPictures(by: SortBy) {
-        when (uiState.value) {
-            is PictureListUiState.Success -> {
-                val sortedList = when (by) {
-                    SortBy.DATE -> sortPicturesByDateUseCase.invoke(
-                        (uiState.value as PictureListUiState.Success).pictures,
-                        true
-                    )
-
-                    SortBy.TITLE -> sortPicturesByTitleUseCase.invoke(
-                        (uiState.value as PictureListUiState.Success).pictures,
-                        true
-                    )
-                }
-                _uiState.value = PictureListUiState.Success(sortedList)
-            }
-
-            is PictureListUiState.Error -> {}
-            is PictureListUiState.Loading -> {}
         }
     }
 }

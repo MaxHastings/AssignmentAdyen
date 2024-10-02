@@ -32,12 +32,12 @@ import com.adyen.android.assignment.viewmodels.ReorderDialogViewModel
 @Composable
 fun ReorderDialog(
     viewModel: ReorderDialogViewModel = hiltViewModel(),
-    onDismiss: () -> Unit
+    onDismiss: (applied: Boolean) -> Unit
 ) {
     val state = viewModel.uiState.collectAsState()
 
     AlertDialog(
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = { onDismiss(false) },
         title = { Text(text = stringResource(id = R.string.sort_pictures)) },
         text = {
             Column {
@@ -73,7 +73,7 @@ fun ReorderDialog(
             Button(
                 onClick = {
                     viewModel.processIntent(ReorderDialogIntent.Apply)
-                    onDismiss()
+                    onDismiss(true)
                 },
                 modifier = Modifier.padding(8.dp)
             ) {
@@ -82,7 +82,7 @@ fun ReorderDialog(
         },
         dismissButton = {
             Button(
-                onClick = { onDismiss() },
+                onClick = { onDismiss(false) },
                 modifier = Modifier.padding(8.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
             ) {

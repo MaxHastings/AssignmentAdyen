@@ -27,16 +27,20 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
 
     // Fetch pictures when the screen is first displayed
     LaunchedEffect(Unit) {
-        if (viewModel.uiState.value is PictureListUiState.Loading) {
-            viewModel.getPictures()
-        }
+        viewModel.getPictures()
     }
 
     when (val currentState = uiState) {
         is PictureListUiState.Loading -> LoadingScreen()
         is PictureListUiState.Success -> {
             if (showDialog) {
-                ReorderDialog(onDismiss = { showDialog = false })
+                ReorderDialog(onDismiss = { applied ->
+                        if (applied) {
+                            viewModel.getPictures()
+                        }
+                        showDialog = false
+                    }
+                )
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })
         }
