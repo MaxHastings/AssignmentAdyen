@@ -43,11 +43,11 @@ class ReorderDialogViewModel @Inject constructor(
                 when (uiState.value) {
                     ReorderDialogUiState.SortByDate ->
                     {
-                        sortPicturesUseCase(selector = { it.date }, ascending = true)
+                        sortPicturesUseCase(selector = { it.date }, true)
                     }
                     ReorderDialogUiState.SortByTitle ->
                     {
-                        sortPicturesUseCase(selector = { it.title }, ascending = true)
+                        sortPicturesUseCase(selector = { it.title }, true)
                     }
                     ReorderDialogUiState.None -> {}
                 }
