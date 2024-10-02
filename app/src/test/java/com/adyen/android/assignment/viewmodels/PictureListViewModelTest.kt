@@ -60,7 +60,7 @@ class PictureListViewModelTest {
         )
         coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.Success(pictures)
 
-        viewModel.getPictures()
+        viewModel.processIntent(PictureListIntent.GetPictures)
 
         viewModel.uiState.value shouldBe PictureListUiState.Success(pictures)
     }

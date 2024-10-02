@@ -36,7 +36,7 @@ class PictureListViewModel @Inject constructor(
      * Fetches the list of pictures using the getPicturesUseCase.
      * Updates the UI state to Success or Error based on the result.
      */
-    fun getPictures() {
+    private fun getPictures() {
         viewModelScope.launch(dispatcher) {
             try {
                 when (val result = getPicturesUseCase(acceptCached = true)) {

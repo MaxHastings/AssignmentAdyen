@@ -27,7 +27,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
 
     // Fetch pictures when the screen is first displayed
     LaunchedEffect(Unit) {
-        viewModel.getPictures()
+        viewModel.processIntent(PictureListIntent.GetPictures)
     }
 
     when (val currentState = uiState) {
@@ -36,7 +36,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
             if (showDialog) {
                 ReorderDialog(onDismiss = { applied ->
                         if (applied) {
-                            viewModel.getPictures()
+                            viewModel.processIntent(PictureListIntent.GetPictures)
                         }
                         showDialog = false
                     }
