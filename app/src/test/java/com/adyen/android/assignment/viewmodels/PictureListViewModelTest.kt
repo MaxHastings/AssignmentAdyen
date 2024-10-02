@@ -83,7 +83,11 @@ class PictureListViewModelTest {
     @Test
     fun `getPictures updates uiState to Error when use case returns ErrorIOException`() = runTest {
         val message = "io exception"
-        coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.ErrorIOException(IOException(message))
+        coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.ErrorIOException(
+            IOException(
+                message
+            )
+        )
 
         viewModel.processIntent(PictureListIntent.GetPictures)
 

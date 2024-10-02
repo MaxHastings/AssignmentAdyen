@@ -26,9 +26,33 @@ class SortPicturesUseCaseTest {
     @Test
     fun `invoke() sorts pictures by title in ascending order`() {
         val pictures = listOf(
-            AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = "")
+            AstronomyPicture(
+                "1",
+                "title1",
+                date = LocalDate.of(2023, 12, 10),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "2",
+                "title2",
+                date = LocalDate.of(2023, 12, 1),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "3",
+                "title3",
+                date = LocalDate.of(2023, 12, 5),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            )
         )
         every { planetaryRepository.getCachedPictures() } returns pictures
         every { planetaryRepository.setCachedPictures(any()) } just Runs
@@ -38,9 +62,33 @@ class SortPicturesUseCaseTest {
         verify {
             planetaryRepository.setCachedPictures(
                 listOf(
-                    AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = "")
+                    AstronomyPicture(
+                        "1",
+                        "title1",
+                        date = LocalDate.of(2023, 12, 10),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "2",
+                        "title2",
+                        date = LocalDate.of(2023, 12, 1),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "3",
+                        "title3",
+                        date = LocalDate.of(2023, 12, 5),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    )
                 )
             )
         }
@@ -52,9 +100,33 @@ class SortPicturesUseCaseTest {
     @Test
     fun `invoke() sorts pictures by title in descending order`() {
         val pictures = listOf(
-            AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = "")
+            AstronomyPicture(
+                "1",
+                "title1",
+                date = LocalDate.of(2023, 12, 10),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "2",
+                "title2",
+                date = LocalDate.of(2023, 12, 1),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "3",
+                "title3",
+                date = LocalDate.of(2023, 12, 5),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            )
         )
         every { planetaryRepository.getCachedPictures() } returns pictures
         every { planetaryRepository.setCachedPictures(any()) } just Runs
@@ -64,9 +136,33 @@ class SortPicturesUseCaseTest {
         verify {
             planetaryRepository.setCachedPictures(
                 listOf(
-                    AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = "")
+                    AstronomyPicture(
+                        "3",
+                        "title3",
+                        date = LocalDate.of(2023, 12, 5),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "2",
+                        "title2",
+                        date = LocalDate.of(2023, 12, 1),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "1",
+                        "title1",
+                        date = LocalDate.of(2023, 12, 10),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    )
                 )
             )
         }
@@ -78,9 +174,33 @@ class SortPicturesUseCaseTest {
     @Test
     fun `invoke() sorts pictures by date in ascending order`() {
         val pictures = listOf(
-            AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = "")
+            AstronomyPicture(
+                "1",
+                "title1",
+                date = LocalDate.of(2023, 12, 10),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "2",
+                "title2",
+                date = LocalDate.of(2023, 12, 1),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "3",
+                "title3",
+                date = LocalDate.of(2023, 12, 5),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            )
         )
         every { planetaryRepository.getCachedPictures() } returns pictures
         every { planetaryRepository.setCachedPictures(any()) } just Runs
@@ -90,9 +210,33 @@ class SortPicturesUseCaseTest {
         verify {
             planetaryRepository.setCachedPictures(
                 listOf(
-                    AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = "")
+                    AstronomyPicture(
+                        "2",
+                        "title2",
+                        date = LocalDate.of(2023, 12, 1),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "3",
+                        "title3",
+                        date = LocalDate.of(2023, 12, 5),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "1",
+                        "title1",
+                        date = LocalDate.of(2023, 12, 10),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    )
                 )
             )
         }
@@ -104,9 +248,33 @@ class SortPicturesUseCaseTest {
     @Test
     fun `invoke() sorts pictures by date in descending order`() {
         val pictures = listOf(
-            AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = ""),
-            AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = "")
+            AstronomyPicture(
+                "1",
+                "title1",
+                date = LocalDate.of(2023, 12, 10),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "2",
+                "title2",
+                date = LocalDate.of(2023, 12, 1),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            ),
+            AstronomyPicture(
+                "3",
+                "title3",
+                date = LocalDate.of(2023, 12, 5),
+                mediaType = "",
+                url = "",
+                hdUrl = "",
+                explanation = ""
+            )
         )
         every { planetaryRepository.getCachedPictures() } returns pictures
         every { planetaryRepository.setCachedPictures(any()) } just Runs
@@ -116,9 +284,33 @@ class SortPicturesUseCaseTest {
         verify {
             planetaryRepository.setCachedPictures(
                 listOf(
-                    AstronomyPicture("1", "title1", date = LocalDate.of(2023, 12, 10), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("3", "title3", date = LocalDate.of(2023, 12, 5), mediaType = "", url = "", hdUrl = "", explanation = ""),
-                    AstronomyPicture("2", "title2", date = LocalDate.of(2023, 12, 1), mediaType = "", url = "", hdUrl = "", explanation = "")
+                    AstronomyPicture(
+                        "1",
+                        "title1",
+                        date = LocalDate.of(2023, 12, 10),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "3",
+                        "title3",
+                        date = LocalDate.of(2023, 12, 5),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    ),
+                    AstronomyPicture(
+                        "2",
+                        "title2",
+                        date = LocalDate.of(2023, 12, 1),
+                        mediaType = "",
+                        url = "",
+                        hdUrl = "",
+                        explanation = ""
+                    )
                 )
             )
         }

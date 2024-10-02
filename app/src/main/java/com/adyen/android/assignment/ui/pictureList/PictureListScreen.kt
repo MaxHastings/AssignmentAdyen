@@ -35,11 +35,11 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
         is PictureListUiState.Success -> {
             if (showDialog) {
                 ReorderDialog(onDismiss = { applied ->
-                        if (applied) {
-                            viewModel.processIntent(PictureListIntent.GetPictures)
-                        }
-                        showDialog = false
+                    if (applied) {
+                        viewModel.processIntent(PictureListIntent.GetPictures)
                     }
+                    showDialog = false
+                }
                 )
             }
             PictureListContent(currentState.pictures, onShowDialogChange = { showDialog = it })

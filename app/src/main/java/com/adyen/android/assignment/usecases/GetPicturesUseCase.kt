@@ -18,5 +18,6 @@ class GetPicturesUseCase @Inject constructor(private val planetaryRepository: Pl
      *
      * @return A PlanetaryResult indicating success or failure.
      */
-    suspend operator fun invoke(acceptCached: Boolean = false): PlanetaryResult = planetaryRepository.getPictures(acceptCached)
+    suspend operator fun invoke(acceptCached: Boolean = false): PlanetaryResult =
+        planetaryRepository.getPictures(acceptCached)
 }
