@@ -27,10 +27,9 @@ The app follows modern Android development practices and uses the following arch
 - **Jetpack Compose:** For building the UI.
 
 ## Screenshots
+<img width="432" alt="Screenshot 2024-10-04 at 9 59 33 AM" src="https://github.com/user-attachments/assets/195f2eeb-0963-4848-9843-f482a9764b5e">
 
-<img width="432" alt="Screenshot 2024-10-02 at 1 44 04 PM" src="https://github.com/user-attachments/assets/2a2d912e-088a-4152-abd9-5f19d0415f48">
-
-<img width="433" alt="Screenshot 2024-10-02 at 1 44 25 PM" src="https://github.com/user-attachments/assets/fc4c8a6e-300c-45b8-9f5b-82005d59a1cc">
+<img width="428" alt="Screenshot 2024-10-04 at 9 59 57 AM" src="https://github.com/user-attachments/assets/82a1f530-7c4f-4872-8d94-abb0494b995d">
 
 <img width="432" alt="Screenshot 2024-10-02 at 1 44 46 PM" src="https://github.com/user-attachments/assets/e45d97ea-2630-46dd-8b65-f9ec7400d7b9">
 
