@@ -49,7 +49,7 @@ fun PictureListScreen(viewModel: PictureListViewModel = hiltViewModel()) {
         }
 
         is PictureListUiState.Error -> ErrorScreen(
-            viewModel,
+            onRetry = { viewModel.processIntent(PictureListIntent.GetPictures(false)) },
             currentState.message,
             currentState.showNetworkSettings
         )

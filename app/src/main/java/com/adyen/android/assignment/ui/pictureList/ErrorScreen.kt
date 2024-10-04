@@ -23,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.viewmodels.PictureListViewModel
 
 /**
  * Composable function that displays an error screen.
@@ -31,13 +30,13 @@ import com.adyen.android.assignment.viewmodels.PictureListViewModel
  * This screen shows an error message and provides options to retry fetching data
  * or open the network settings.
  *
- * @param viewModel The ViewModel used to retry fetching data.
+ * @param onRetry The callback function to be used to retry fetching data.
  * @param message The error message to display.
  * @param showNetworkSettings Whether to show a button to open network settings.
  */
 @Composable
 fun ErrorScreen(
-    viewModel: PictureListViewModel,
+    onRetry: () -> Unit,
     message: String,
     showNetworkSettings: Boolean = false
 ) {
@@ -75,7 +74,7 @@ fun ErrorScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { viewModel.processIntent(PictureListIntent.GetPictures(false)) },
+                onClick = { onRetry() },
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(text = stringResource(id = R.string.retry))
