@@ -36,10 +36,10 @@ class PictureListViewModel @Inject constructor(
      * Fetches the list of pictures using the getPicturesUseCase.
      * Updates the UI state to Success or Error based on the result.
      */
-    private fun getPictures() {
+    private fun getPictures(acceptedCached: Boolean = true) {
         viewModelScope.launch(dispatcher) {
             try {
-                when (val result = getPicturesUseCase(acceptCached = true)) {
+                when (val result = getPicturesUseCase(acceptedCached)) {
                     is PlanetaryResult.Success -> {
                         _uiState.value = PictureListUiState.Success(pictures = result.pictures)
                     }
@@ -71,7 +71,7 @@ class PictureListViewModel @Inject constructor(
             is PictureListIntent.GetPictures -> {
                 _uiState.value =
                     PictureListUiState.Loading
-                getPictures()
+                getPictures(intent.acceptedCached)
             }
         }
     }

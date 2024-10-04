@@ -60,7 +60,7 @@ class PictureListViewModelTest {
         )
         coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.Success(pictures)
 
-        viewModel.processIntent(PictureListIntent.GetPictures)
+        viewModel.processIntent(PictureListIntent.GetPictures())
 
         viewModel.uiState.value shouldBe PictureListUiState.Success(pictures)
     }
@@ -72,7 +72,7 @@ class PictureListViewModelTest {
     fun `getPictures updates uiState to Error when use case returns ErrorCode`() = runTest {
         coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.ErrorCode(400)
 
-        viewModel.processIntent(PictureListIntent.GetPictures)
+        viewModel.processIntent(PictureListIntent.GetPictures())
 
         viewModel.uiState.value shouldBe PictureListUiState.Error("400", false)
     }
@@ -89,7 +89,7 @@ class PictureListViewModelTest {
             )
         )
 
-        viewModel.processIntent(PictureListIntent.GetPictures)
+        viewModel.processIntent(PictureListIntent.GetPictures())
 
         viewModel.uiState.value shouldBe PictureListUiState.Error(message, true)
     }
@@ -101,7 +101,7 @@ class PictureListViewModelTest {
     fun `getPictures updates uiState to Error when use case returns ErrorException`() = runTest {
         coEvery { getPicturesUseCase(any()) } returns PlanetaryResult.ErrorException(Exception("Test exception"))
 
-        viewModel.processIntent(PictureListIntent.GetPictures)
+        viewModel.processIntent(PictureListIntent.GetPictures())
 
 
         viewModel.uiState.value shouldBe PictureListUiState.Error("Test exception", false)
@@ -114,7 +114,7 @@ class PictureListViewModelTest {
     fun `getPictures updates uiState to Error when an exception occurs`() = runTest {
         coEvery { getPicturesUseCase(any()) } throws RuntimeException("Test exception")
 
-        viewModel.processIntent(PictureListIntent.GetPictures)
+        viewModel.processIntent(PictureListIntent.GetPictures())
 
         viewModel.uiState.value shouldBe PictureListUiState.Error("Test exception")
     }

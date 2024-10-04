@@ -75,7 +75,7 @@ fun ErrorScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { viewModel.processIntent(PictureListIntent.GetPictures) },
+                onClick = { viewModel.processIntent(PictureListIntent.GetPictures(false)) },
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(text = stringResource(id = R.string.retry))
