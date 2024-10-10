@@ -7,5 +7,5 @@ sealed class PictureListIntent {
     /**
      * Intent to fetch the list of pictures.
      */
-    data class GetPictures(val acceptedCached: Boolean = true) : PictureListIntent()
+    data class GetPictures(val acceptedCached: Boolean) : PictureListIntent()
 }
